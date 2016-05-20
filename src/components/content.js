@@ -2,9 +2,14 @@ import React from 'react';
 import Section from './section';
 import PureRenderMixin from 'react-pure-render/mixin';
 import GithubSlugger from 'github-slugger';
-import { transformURL } from '../../custom';
+import { transformURL } from '../custom';
 let slugger = new GithubSlugger();
 let slug = title => { slugger.reset(); return slugger.slug(title); };
+
+var roundedToggleOptionType = React.PropTypes.shape({
+  title: React.PropTypes.string,
+  value: React.PropTypes.string
+});
 
 function chunkifyAST(ast, language) {
   var preview = false;
@@ -70,14 +75,14 @@ var Content = React.createClass({
   mixins: [PureRenderMixin],
   propTypes: {
     ast: React.PropTypes.object.isRequired,
-    language: React.PropTypes.string.isRequired,
+    language: roundedToggleOptionType,
     leftClassname: React.PropTypes.string.isRequired,
     rightClassname: React.PropTypes.string.isRequired
   },
   render() {
     let { ast, language, leftClassname, rightClassname } = this.props;
     return (<div className='clearfix'>
-      {chunkifyAST(ast, language).map((chunk, i) => <Section
+      {chunkifyAST(ast, language.value).map((chunk, i) => <Section
         leftClassname={leftClassname}
         rightClassname={rightClassname}
         chunk={chunk}

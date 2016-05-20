@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import App from './components/app';
 import remark from 'remark';
 import slug from 'remark-slug';
-import content from '../custom/content';
+import content from './custom/content';
 import fs from 'fs';
 
 var ast = remark()

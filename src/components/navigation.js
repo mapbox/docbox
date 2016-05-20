@@ -1,7 +1,7 @@
 import React from 'react';
 import PureRenderMixin from 'react-pure-render/mixin';
 import NavigationItem from './navigation_item';
-import { backLink } from '../../custom';
+import { footerContent } from '../custom';
 
 function getAllInSectionFromChild(headings, idx) {
   for (var i = idx; i > 0; i--) {
@@ -88,7 +88,7 @@ var Navigation = React.createClass({
             }
           }
         })}
-        <a href='/' className='space-top2 pad1y dark keyline-top block small quiet'>{backLink}</a>
+        {footerContent}
     </div>);
   }
 });

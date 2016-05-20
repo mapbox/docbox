@@ -6,7 +6,7 @@ var select = require('unist-util-select');
 var fs = require('fs');
 var GithubSlugger = require('github-slugger');
 var { linter } = require('eslint');
-var allPages = require('../custom/content');
+var allPages = require('./custom/content');
 
 var slugger = new GithubSlugger();
 var actionVerbs = /^(List|Retrieve|Remove|Search|Create|Delete)/;

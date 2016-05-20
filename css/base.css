@@ -1321,39 +1321,6 @@ table.fixed {
 .scroll-styled {
   overflow:auto;
   }
-.scroll-styled .highlight pre::webkit-scrollbar,
-.scroll-styled::-webkit-scrollbar {
-  width:8px;
-  height:8px;
-  border-left:0;
-  background:rgba(0,0,0,0.1);
-  }
-.scroll-styled .highlight pre::webkit-scrollbar:hover,
-.scroll-styled::-webkit-scrollbar:hover {
-  background:rgba(0,0,0,0.15);
-  }
-.scroll-styled .highlight pre::webkit-scrollbar-track,
-.scroll-styled::-webkit-scrollbar-track {
-  background:none;
-  }
-.scroll-styled .highlight pre::webkit-scrollbar-thumb,
-.scroll-styled::-webkit-scrollbar-thumb {
-  background:rgba(0,0,0,0.1);
-  border-radius:0;
-  }
-
-.dark .scroll-styled::-webkit-scrollbar {
-  width:8px;
-  height:8px;
-  background:rgba(255,255,255,0.1);
-  border-radius:0;
-  }
-.dark .scroll-styled::-webkit-scrollbar:hover {
-  background:rgba(255,255,255,0.15);
-  }
-.dark .scroll-styled::-webkit-scrollbar-thumb {
-  background:rgba(255,255,255,0.1);
-  }
 
 /* Inline Elements: Formatted for read content
 ------------------------------------------------------- */

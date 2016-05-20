@@ -3,16 +3,19 @@ import remark from 'remark';
 import remarkHTML from 'remark-html';
 import remarkHighlight from '../highlight';
 import PureRenderMixin from 'react-pure-render/mixin';
-import { postHighlight } from '../../custom';
+import { postHighlight, remarkPlugins } from '../custom';
 
 function renderHighlighted(nodes) {
   return {
     __html: postHighlight(remark()
       .use(remarkHTML)
-      .stringify(remark().use(remarkHighlight).run({
-        type: 'root',
-        children: nodes
-      })))
+      .stringify(remark()
+        .use(remarkHighlight)
+        .use(remarkPlugins)
+        .run({
+          type: 'root',
+          children: nodes
+        })))
   };
 }
 

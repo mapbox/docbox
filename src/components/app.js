@@ -5,14 +5,37 @@ import RoundedToggle from './rounded_toggle';
 import PureRenderMixin from 'react-pure-render/mixin';
 import GithubSlugger from 'github-slugger';
 import debounce from 'lodash.debounce';
-import { brandNames, brandClasses } from '../../custom';
+import { brandNames, brandClasses } from '../custom';
 import qs from 'querystring';
 
 let slugger = new GithubSlugger();
 let slug = title => { slugger.reset(); return slugger.slug(title); };
 
-let languageOptions = ['cURL', 'CLI', 'Python', 'JavaScript'];
-let defaultLanguage = 'cURL';
+let languageOptions = [
+  { title: 'cURL',
+    short: 'cURL',
+    value: 'curl' },
+  { title: 'CLI',
+    short: 'cli',
+    value: 'cli' },
+  { title: 'Python',
+    short: 'Python',
+    value: 'python' },
+  { title: 'JavaScript',
+    short: 'JS',
+    value: 'javascript' },
+  { title: 'Java',
+    short: 'Java',
+    value: 'java' },
+  { title: 'Objective-C',
+    short: 'ObjC',
+    value: 'objc' },
+  { title: 'Swift',
+    short: 'Swift',
+    value: 'swift' }
+];
+
+let defaultLanguage = languageOptions[0];
 
 let debouncedReplaceState = debounce(hash => {
   window.history.replaceState('', '', hash);
@@ -30,16 +53,15 @@ var App = React.createClass({
     if (process.browser) {
       let hash = window.location.hash.split('#').pop();
       let languageFromURL = qs.parse(window.location.search.substring(1)).language;
-      let language = languageOptions.includes(languageFromURL) ?
-        languageFromURL : defaultLanguage;
-      let mqls = {
-        desktop: window.matchMedia('(min-width: 961px)'),
-        tablet: window.matchMedia('(max-width: 960px)'),
-        mobile: window.matchMedia('(max-width: 640px)')
-      };
-      Object.keys(mqls).forEach(key => {
-        mqls[key].addListener(this.mediaQueryChanged);
-      });
+      let language = languageOptions.find(option => option.title === languageFromURL) ||
+        defaultLanguage;
+      let mqls = [
+        { name: 'widescreen', query: window.matchMedia('(min-width: 1200px)') },
+        { name: 'desktop', query: window.matchMedia('(min-width: 961px)') },
+        { name: 'tablet', query: window.matchMedia('(max-width: 960px)') },
+        { name: 'mobile', query: window.matchMedia('(max-width: 640px)') }
+      ];
+      mqls.forEach(q => q.query.addListener(this.mediaQueryChanged));
       if (hash) {
         let headingForHash = this.props.ast.children
           .filter(child => child.type === 'heading')
@@ -61,9 +83,7 @@ var App = React.createClass({
       };
     } else {
       return {
-        mqls: {
-          desktop: true
-        },
+        mqls: { },
         queryMatches: {
           desktop: true
         },
@@ -78,11 +98,11 @@ var App = React.createClass({
   },
   componentDidMount() {
     this.mediaQueryChanged();
-    this.onScroll = debounce(this._onScroll, 100);
+    this.onScroll = debounce(this.onScrollImmediate, 100);
     document.addEventListener('scroll', this.onScroll);
-    this._onScroll();
+    this.onScrollImmediate();
   },
-  _onScroll() {
+  onScrollImmediate() {
     var sections = document.querySelectorAll('div.section');
     if (!sections.length) return;
     for (var i = 0; i < sections.length; i++) {
@@ -97,23 +117,21 @@ var App = React.createClass({
   },
   mediaQueryChanged() {
     this.setState({
-      queryMatches: {
-        mobile: this.state.mqls.mobile.matches,
-        tablet: this.state.mqls.tablet.matches,
-        desktop: this.state.mqls.desktop.matches
-      }
+      queryMatches: this.state.mqls.reduce((memo, q) => {
+        memo[q.name] = q.query.matches;
+        return memo;
+      }, {})
     });
   },
   componentWillUnmount() {
-    Object.keys(this.state.mqls).forEach(key =>
-      this.state.mqls[key].removeListener(this.mediaQueryChanged));
+    this.state.mqls.forEach(q => q.removeListener(this.mediaQueryChanged));
     document.body.removeEventListener('scroll', this.onScroll);
   },
   onChangeLanguage(language) {
     this.setState({ language }, () => {
       if (window.history) {
         window.history.pushState(null, null,
-          `?${qs.stringify({ language })}${window.location.hash}`);
+          `?${qs.stringify({ language: language.title })}${window.location.hash}`);
       }
     });
   },
@@ -121,7 +139,7 @@ var App = React.createClass({
     if (prevState.activeSection !== this.state.activeSection) {
       // when the section changes, replace the hash
       debouncedReplaceState(`#${slug(this.state.activeSection)}`);
-    } else if (prevState.language !== this.state.language ||
+    } else if (prevState.language.title !== this.state.language.title ||
       prevState.columnMode !== this.state.columnMode) {
       // when the language changes, use the hash to set scroll
       window.location.hash = window.location.hash;
@@ -141,7 +159,7 @@ var App = React.createClass({
     });
   },
   render() {
-    let { ast } = this.props;
+    let ast = JSON.parse(JSON.stringify(this.props.ast));
     let { activeSection, queryMatches, showNav, columnMode } = this.state;
     let col1 = columnMode === 1 && queryMatches.desktop;
     return (<div className='container unlimiter'>
@@ -152,7 +170,7 @@ var App = React.createClass({
       </div>}
 
       {/* Desktop nav */ }
-      {queryMatches.desktop && <div className='space-top5 scroll-styled pad1 width16 sidebar fixed-left fill-dark dark'>
+      {queryMatches.desktop && <div className='space-top5 scroll-styled overflow-auto pad1 width16 sidebar fixed-left fill-dark dark'>
         <Navigation
           navigationItemClicked={this.navigationItemClicked}
           activeSection={activeSection}
@@ -166,7 +184,7 @@ var App = React.createClass({
             leftClassname={col1 ? 'space-bottom4 pad2x prose clip' : 'space-bottom8 col6 pad2x prose clip'}
             rightClassname={col1 ? 'space-bottom2 pad2 prose clip fill-light space-top5' : 'space-bottom4 col6 pad2 prose clip fill-light space-top5'}
             ast={ast}
-            language={this.state.language.toLowerCase()}/>
+            language={this.state.language}/>
         </div>
       </div>
 
@@ -177,6 +195,7 @@ var App = React.createClass({
             Show examples in:
           </div>
           <RoundedToggle
+            short={!queryMatches.widescreen}
             options={languageOptions}
             onChange={this.onChangeLanguage}
             active={this.state.language} />

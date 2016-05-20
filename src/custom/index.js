@@ -59,3 +59,5 @@ module.exports.transformURL = function(value) {
     </div>`
   };
 };
+
+module.exports.remarkPlugins = [];
