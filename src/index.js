@@ -8,7 +8,7 @@ import content from './custom/content';
 
 var ast = remark()
   .use(slug)
-  .run(remark().parse(content));
+  .runSync(remark().parse(content));
 
 ReactDOM.render(
   <App ast={ast} content={content} />,

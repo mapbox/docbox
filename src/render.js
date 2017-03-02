@@ -8,7 +8,7 @@ import fs from 'fs';
 
 var ast = remark()
   .use(slug)
-  .run(remark().parse(content));
+  .runSync(remark().parse(content));
 
 var template = fs.readFileSync('./index.html', 'utf8');
 

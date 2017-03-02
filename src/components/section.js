@@ -12,7 +12,7 @@ function renderHighlighted(nodes) {
       .stringify(remark()
         .use(remarkHighlight)
         .use(remarkPlugins)
-        .run({
+        .runSync({
           type: 'root',
           children: nodes
         })))
