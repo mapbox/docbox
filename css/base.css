@@ -17,7 +17,6 @@ time, mark, audio, video {
   padding:0;
   border:0;
   font-size:100%;
-  font:inherit;
   vertical-align:baseline;
   }
 /* HTML5 display-role reset for older browsers */
@@ -83,7 +82,8 @@ em h3, h3 em,
 em h4, h4 em,
 em h5, h5 em,
 em h6, h6 em {
-  font-family:'Open Sans Bold Italic', sans-serif;
+  font-weight: bold;
+  font-style: italic;
   }
 
 h1 {
@@ -129,79 +129,6 @@ small { display:block; }
   letter-spacing:0;
   }
 
-.strong,
-strong {
-  font-family:'Open Sans Bold', sans-serif;
-  font-weight:normal;
-  }
-  strong em,
-  em strong { font-family:'Open Sans Bold Italic', sans-serif; }
-
-address,
-em {
-  font-family:'Open Sans Italic', sans-serif;
-  }
-
-/* Fancy font style */
-
-h1.fancy,
-h2.fancy,
-h3.fancy {
-  font-family:'Brandon', sans-serif;
-  }
-
-h1.fancy {
-  font-size:60px;
-  line-height:80px;
-  letter-spacing:3px;
-  text-transform: uppercase;
-  }
-h2.fancy {
-  padding-top: 0;
-  padding-bottom: 0;
-  font-size:40px;
-  letter-spacing:2px;
-  line-height:50px;
-  text-transform: uppercase;
-  }
-
-.prose-big h3.fancy,
-h3.fancy {
-  font-size:28px;
-  letter-spacing:2px;
-  line-height:40px;
-  text-transform: uppercase;
-  }
-
-/* deprecated */
-h1.futura,
-h2.futura,
-h3.futura {
-  font-family:'Brandon', sans-serif;
-  }
-
-h1.futura {
-  font-size:60px;
-  line-height:80px;
-  letter-spacing:3px;
-  text-transform: uppercase;
-  }
-h2.futura {
-  padding-top: 0;
-  padding-bottom: 0;
-  font-size:40px;
-  letter-spacing:2px;
-  line-height:50px;
-  text-transform: uppercase;
-  }
-
-.prose-big h3.futura,
-h3.futura {
-  font-size:28px;
-  letter-spacing:2px;
-  line-height:40px;
-  text-transform: uppercase;
-  }
 
 /* Links */
 a,
@@ -255,7 +182,7 @@ a.quiet.dark.active, a.quiet.dark:hover { color:rgba(255,255,255,0.5); }
   white-space:nowrap;
   text-overflow:ellipsis;
   /* Protects button metrics in .prose context */
-  font-family:'Open Sans Bold', sans-serif;
+  font-weight: bold;
   line-height:20px;
   font-size:12px;
   -webkit-appearance:none;
@@ -520,7 +447,7 @@ a.quiet.dark.active, a.quiet.dark:hover { color:rgba(255,255,255,0.5); }
     border-bottom:1px solid rgba(0,0,0,0.25);
     background:transparent;
     color:rgba(0,0,0,.5);
-    font-family:'Open Sans Bold', sans-serif;
+    font-weight: bold;
     font-size:12px;
     text-align:center;
     display:inline-block;
@@ -959,7 +886,9 @@ form fieldset:last-child {
   }
 
 form fieldset label {
-  font:12px/20px 'Open Sans Bold', sans-serif;
+  font-size:12px;
+  line-height:20px;
+  font-weight: bold;
   display:block;
   margin:0 0 5px;
   }
@@ -1301,7 +1230,7 @@ table {
     border-bottom:1px solid #ddd;
     }
   table th {
-    font-family:'Open Sans Bold', sans-serif;
+    font-weight: bold;
     }
   table thead th {
     vertical-align:bottom;
@@ -3646,27 +3575,6 @@ img.inline, .inline           { display:inline-block; }
   .mobile-cols > .margin11 { margin-left:91.6666%; }
   .mobile-cols > .margin12 { margin-left:100.0000%; }
 
-  /* Fanct gets too big, revert to defaults */
-  h1.fancy { font-size:40px;line-height:60px;}
-  h2.fancy {
-    font-size:30px;
-    line-height:40px;
-  }
-  h3.fancy {
-    font-size:20px;
-    line-height:30px;
-  }
-
-  /* Deprecated */
-  h1.futura { font-size:40px;line-height:60px;}
-  h2.futura {
-    font-size:30px;
-    line-height:40px;
-  }
-  h3.futura {
-    font-size:20px;
-    line-height:30px;
-  }
 
   /* Anchor icon adds noise to the page on smaller displays */
   .doc h1[id]:before,
