@@ -1,8 +1,7 @@
 # Docbox :blue_book:
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/tmcw/docbox.svg)](https://greenkeeper.io/)
-
 [![Circle CI](https://circleci.com/gh/tmcw/docbox.svg?style=shield)](https://circleci.com/gh/tmcw/docbox)
+[![Greenkeeper badge](https://badges.greenkeeper.io/tmcw/docbox.svg)](https://greenkeeper.io/)
 
 **Docbox is an open source version of [Mapbox](https://mapbox.com/)'s REST API documentation system.** It takes structured Markdown files and generates a friendly two-column layout with navigation, permalinks, and examples. The documentation source files that Docbox uses are friendly for documentation authors and free of presentational code: it's Markdown.
 

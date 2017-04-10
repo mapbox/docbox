@@ -166,7 +166,7 @@ var App = React.createClass({
 
       {/* Content background */ }
       {(!col1 && !queryMatches.mobile) && <div className={`fixed-top fixed-right ${queryMatches.desktop && 'space-left16'}`}>
-        <div className='fill-light col6 pin-right'></div>
+        <div className='fill-light col6 pin-right' />
       </div>}
 
       {/* Desktop nav */ }
@@ -205,14 +205,14 @@ var App = React.createClass({
                 title={`Display as ${col1 ? 2 : 1} column`}
                 onClick={this.toggleColumnMode}
                 style={{ cursor: 'pointer' }}
-                className={`icon quiet caret-${col1 ? 'right' : 'left'} pad0 fill-darken0 round`}></a> : null}
+                className={`icon quiet caret-${col1 ? 'right' : 'left'} pad0 fill-darken0 round`} /> : null}
           </div>
         </div>
       </div>
 
       {/* Header */ }
       <div className={`fill-dark dark bottom-shadow fixed-top ${queryMatches.tablet ? 'pad1y pad2x col6' : 'pad0 width16'}`}>
-        <a href='/' className={`active space-top1 space-left1 pin-topleft icon round dark pad0 ${brandClasses}`}></a>
+        <a href='/' className={`active space-top1 space-left1 pin-topleft icon round dark pad0 ${brandClasses}`} />
         <div className={`strong small pad0
           ${queryMatches.mobile ? 'space-left3' : ''}
           ${queryMatches.tablet ? 'space-left2' : 'space-left4 line-height15' }`}>
