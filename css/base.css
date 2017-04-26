@@ -3341,7 +3341,7 @@ Details: http://www.positioniseverything.net/easyclearing.html
 .quiet                        { color:#7f7f7f; color: rgba(0,0,0,.5); }
 .dark .quiet                  { color: #7f7f7f; color: rgba(255,255,255,.5);}
 .center                       { text-align:center; }
-.contain                      { position:relative; }
+.contain                      { position:relative; overflow: auto;}
 .clip                         { overflow:hidden; }
 .hidden.hidden                { display:none; }
 .text-left                    { text-align:left; }
