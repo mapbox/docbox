@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-pure-render/mixin';
+import PropTypes from 'prop-types';
 import NavigationItem from './navigation_item';
 import { footerContent } from '../custom';
 
@@ -23,13 +23,12 @@ function getAllInSection(headings, idx) {
   return activeHeadings;
 }
 
-var Navigation = React.createClass({
-  mixins: [PureRenderMixin],
-  propTypes: {
-    ast: React.PropTypes.object.isRequired,
-    activeSection: React.PropTypes.string,
-    navigationItemClicked: React.PropTypes.func.isRequired
-  },
+export default class Navigation extends React.PureComponent {
+  static propTypes = {
+    ast: PropTypes.object.isRequired,
+    activeSection: PropTypes.string,
+    navigationItemClicked: PropTypes.func.isRequired
+  }
   render() {
     var activeHeadings = [];
     let headings = this.props.ast.children
@@ -91,6 +90,4 @@ var Navigation = React.createClass({
         {footerContent}
     </div>);
   }
-});
-
-module.exports = Navigation;
+}

@@ -1,8 +1,8 @@
 import React from 'react';
 import remark from 'remark';
+import PropTypes from 'prop-types';
 import remarkHTML from 'remark-html';
 import remarkHighlight from '../highlight';
-import PureRenderMixin from 'react-pure-render/mixin';
 import { postHighlight, remarkPlugins } from '../custom';
 
 function renderHighlighted(nodes) {
@@ -19,13 +19,12 @@ function renderHighlighted(nodes) {
   };
 }
 
-var Section = React.createClass({
-  mixins: [PureRenderMixin],
-  propTypes: {
-    chunk: React.PropTypes.object.isRequired,
-    leftClassname: React.PropTypes.string.isRequired,
-    rightClassname: React.PropTypes.string.isRequired
-  },
+export default class Section extends React.PureComponent {
+  static propTypes = {
+    chunk: PropTypes.object.isRequired,
+    leftClassname: PropTypes.string.isRequired,
+    rightClassname: PropTypes.string.isRequired
+  }
   render() {
     let { chunk, leftClassname, rightClassname } = this.props;
     let { left, right, preview } = chunk;
@@ -40,6 +39,4 @@ var Section = React.createClass({
         dangerouslySetInnerHTML={renderHighlighted(right)} />}
     </div>);
   }
-});
-
-module.exports = Section;
+}

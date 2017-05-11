@@ -1,17 +1,16 @@
 import React from 'react';
-import PureRenderMixin from 'react-pure-render/mixin';
+import PropTypes from 'prop-types';
 
-var NavigationItem = React.createClass({
-  mixins: [PureRenderMixin],
-  propTypes: {
-    sectionName: React.PropTypes.string.isRequired,
-    active: React.PropTypes.bool.isRequired,
-    onClick: React.PropTypes.func.isRequired,
-    href: React.PropTypes.string.isRequired
-  },
-  onClick() {
+export default class NavigationItem extends React.PureComponent {
+  static propTypes = {
+    sectionName: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired,
+    href: PropTypes.string.isRequired
+  }
+  onClick = () => {
     this.props.onClick(this.props.sectionName);
-  },
+  }
   render() {
     var {sectionName, href, active} = this.props;
     return (<a
@@ -21,6 +20,4 @@ var NavigationItem = React.createClass({
       {sectionName}
     </a>);
   }
-});
-
-module.exports = NavigationItem;
+}
