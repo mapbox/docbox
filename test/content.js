@@ -83,7 +83,7 @@ describe('content', () => {
         select(ast, 'code[lang=json]').forEach(node => {
           expect(function() {
             JSON.parse(node.value);
-          }).toNotThrow(null, 'a JSON code block at L:' +
+          }).not.toThrow('a JSON code block at L:' +
             node.position.start.line + ' of ' + file + ' was invalid');
         });
       });
