@@ -92,6 +92,8 @@ export default class App extends React.PureComponent {
         showNav: false
       };
     }
+	
+	this.navigationItemClicked = this.navigationItemClicked.bind(this);
   }
   toggleNav() {
     this.setState({ showNav: !this.state.showNav });
