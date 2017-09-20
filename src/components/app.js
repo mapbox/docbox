@@ -92,8 +92,6 @@ export default class App extends React.PureComponent {
         showNav: false
       };
     }
-	
-	this.navigationItemClicked = this.navigationItemClicked.bind(this);
   }
   toggleNav() {
     this.setState({ showNav: !this.state.showNav });
@@ -147,7 +145,7 @@ export default class App extends React.PureComponent {
       window.location.hash = window.location.hash;
     }
   }
-  navigationItemClicked(activeSection) {
+  navigationItemClicked = activeSection => {
     setTimeout(() => {
       this.setState({ activeSection });
     }, 10);
