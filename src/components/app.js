@@ -93,7 +93,7 @@ export default class App extends React.PureComponent {
       };
     }
   }
-  toggleNav() {
+  toggleNav = () => {
     this.setState({ showNav: !this.state.showNav });
   }
   componentDidMount() {
@@ -115,7 +115,7 @@ export default class App extends React.PureComponent {
       }
     }
   }
-  mediaQueryChanged() {
+  mediaQueryChanged = () => {
     this.setState({
       queryMatches: this.state.mqls.reduce((memo, q) => {
         memo[q.name] = q.query.matches;
@@ -146,6 +146,7 @@ export default class App extends React.PureComponent {
     }
   }
   navigationItemClicked = activeSection => {
+      debugger;
     setTimeout(() => {
       this.setState({ activeSection });
     }, 10);
@@ -153,7 +154,7 @@ export default class App extends React.PureComponent {
       this.toggleNav();
     }
   }
-  toggleColumnMode() {
+  toggleColumnMode = () => {
     this.setState({
       columnMode: this.state.columnMode === 1 ? 2 : 1
     });
