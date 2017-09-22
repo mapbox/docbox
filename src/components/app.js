@@ -146,7 +146,6 @@ export default class App extends React.PureComponent {
     }
   }
   navigationItemClicked = activeSection => {
-      debugger;
     setTimeout(() => {
       this.setState({ activeSection });
     }, 10);
