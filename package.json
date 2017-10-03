@@ -61,7 +61,7 @@
     "budo": "^10.0.0",
     "cz-conventional-changelog": "2.0.0",
     "expect": "^21.0.2",
-    "mocha": "^3.2.0",
+    "mocha": "^4.0.0",
     "to-vfile": "^2.0.0",
     "uglify-js": "^3.0.27"
   },
