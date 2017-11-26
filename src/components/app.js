@@ -93,7 +93,7 @@ export default class App extends React.PureComponent {
       };
     }
   }
-  toggleNav() {
+  toggleNav = () => {
     this.setState({ showNav: !this.state.showNav });
   }
   componentDidMount() {
@@ -115,7 +115,7 @@ export default class App extends React.PureComponent {
       }
     }
   }
-  mediaQueryChanged() {
+  mediaQueryChanged = () => {
     this.setState({
       queryMatches: this.state.mqls.reduce((memo, q) => {
         memo[q.name] = q.query.matches;
