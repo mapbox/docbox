@@ -153,7 +153,7 @@ export default class App extends React.PureComponent {
       this.toggleNav();
     }
   }
-  toggleColumnMode() {
+  toggleColumnMode = () => {
     this.setState({
       columnMode: this.state.columnMode === 1 ? 2 : 1
     });
