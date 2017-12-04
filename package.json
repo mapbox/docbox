@@ -49,7 +49,7 @@
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "remark": "^8.0.0",
-    "remark-html": "^6.0.0",
+    "remark-html": "^7.0.0",
     "remark-slug": "^4.1.0",
     "standard-changelog": "^1.0.1",
     "standard-version": "^4.0.0",
