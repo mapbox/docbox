@@ -34,7 +34,7 @@
     "babel-preset-stage-0": "^6.3.13",
     "babelify": "^8.0.0",
     "brfs": "^1.4.2",
-    "browserify": "^14.3.0",
+    "browserify": "^15.0.0",
     "cssnano": "^3.4.0",
     "es6-promise": "^4.1.0",
     "eslint": "^4.1.0",
