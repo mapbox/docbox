@@ -53,17 +53,8 @@ function chunkifyAST(ast, language) {
       } else if (node.type === 'heading' && node.depth < 4 && !title) {
         title = node.children[0].value;
         left.push(node);
-      } else if (node.type === 'html') {
-        if (node.value.indexOf('<!--') === 0) {
-          var content = node.value
-            .replace(/^<!--/, '')
-            .replace(/-->$/, '')
-            .trim();
-          if (content === 'preview') {
-            preview = true;
-          }
-        }
-        left.push(node);
+      } else if (node.type === 'html' && node.value.match(/^<!--\s*preview\s*-->$/)) {
+        preview = true;
       } else {
         left.push(node);
       }
