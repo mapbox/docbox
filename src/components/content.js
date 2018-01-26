@@ -63,6 +63,7 @@ function chunkifyAST(ast, language) {
             preview = true;
           }
         }
+        left.push(node);
       } else {
         left.push(node);
       }
