@@ -58,9 +58,9 @@
     "budo": "^11.0.0",
     "cross-env": "^5.1.6",
     "cz-conventional-changelog": "2.1.0",
-    "standard-version": "^4.4.0",
     "expect": "^23.0.1",
     "mocha": "^5.0.0",
+    "standard-version": "^4.4.0",
     "to-vfile": "^4.0.0",
     "uglify-js": "^3.0.27"
   },
