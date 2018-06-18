@@ -4,12 +4,14 @@
   "description": "an api documentation website",
   "main": "index.js",
   "scripts": {
+    "gen-index": "cpy --no-overwrite index.html.sample --rename=index.html .",
+    "postinstall": "npm run gen-index",
     "start": "budo src/index.js --serve=bundle.js --live",
     "release": "standard-version",
     "test": "npm run test-unit && eslint src && npm run prerender -- /dev/null && rm -rf lib",
     "test-unit": "mocha --compilers js:babel-register test",
     "prerender": "babel src --out-dir lib && node lib/render.js",
-    "build": "cross-env NODE_ENV=production browserify src/index.js | uglifyjs -c -m > bundle.js && npm run prerender -- index.html"
+    "build": "npm run gen-index && cross-env NODE_ENV=production browserify src/index.js | uglifyjs -c -m > bundle.js && npm run prerender -- index.html"
   },
   "browserify": {
     "transform": [
@@ -56,6 +58,7 @@
   "devDependencies": {
     "babel-register": "^6.3.13",
     "budo": "^11.0.0",
+    "cpy-cli": "^2.0.0",
     "cross-env": "^5.1.6",
     "cz-conventional-changelog": "2.1.0",
     "expect": "^23.0.1",
