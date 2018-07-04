@@ -36,7 +36,7 @@
     "babelify": "^8.0.0",
     "brfs": "^2.0.0",
     "browserify": "^16.0.0",
-    "cssnano": "^3.4.0",
+    "cssnano": "^4.0.0",
     "es6-promise": "^4.1.0",
     "eslint": "^4.1.0",
     "eslint-plugin-babel": "^5.0.0",
