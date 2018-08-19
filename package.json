@@ -49,7 +49,7 @@
     "prop-types": "^15.5.9",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
-    "remark": "^8.0.0",
+    "remark": "^9.0.0",
     "remark-html": "^7.0.0",
     "remark-slug": "^5.0.0",
     "unist-util-select": "^1.3.0",
