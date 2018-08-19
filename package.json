@@ -47,7 +47,7 @@
     "lodash.debounce": "^4.0.3",
     "minifyify": "^7.1.0",
     "prop-types": "^15.5.9",
-    "react": "^15.6.2",
+    "react": "^16.3.0",
     "react-dom": "^15.6.2",
     "remark": "^8.0.0",
     "remark-html": "^7.0.0",
