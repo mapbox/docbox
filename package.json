@@ -46,7 +46,7 @@
     "isomorphic-fetch": "^2.2.0",
     "lodash.debounce": "^4.0.3",
     "minifyify": "^7.1.0",
-    "prop-types": "^15.5.9",
+    "prop-types": "15.6.2",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "remark": "^8.0.0",
