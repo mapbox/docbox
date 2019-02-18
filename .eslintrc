@@ -4,6 +4,11 @@
     "browser": true,
     "node": true
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "plugins": [
     "react",
     "babel"
@@ -23,6 +28,7 @@
     "no-undef": [2],
     "no-underscore-dangle": [2],
     "no-unused-vars": [2],
+    "no-self-assign": [0],
     "no-use-before-define": [0],
     "quotes": [2, "single", {"allowTemplateLiterals": true}],
     "react/display-name": [2],
