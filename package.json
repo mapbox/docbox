@@ -42,7 +42,7 @@
     "eslint-plugin-babel": "^5.0.0",
     "eslint-plugin-react": "^7.12.2",
     "github-slugger": "^1.0.1",
-    "highlight.js": "^9.2.0",
+    "highlight.js": "^9.15.5",
     "isomorphic-fetch": "^2.2.0",
     "lodash.debounce": "^4.0.3",
     "minifyify": "^7.1.0",
