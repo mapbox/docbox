@@ -63,7 +63,7 @@
     "cz-conventional-changelog": "^2.1.0",
     "expect": "^24.1.0",
     "mocha": "^6.0.0",
-    "standard-version": "^5.0.0",
+    "standard-version": "^6.0.1",
     "uglify-js": "^3.0.27"
   },
   "config": {
