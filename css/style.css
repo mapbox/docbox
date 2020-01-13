@@ -125,3 +125,10 @@ body .prose blockquote {
   margin-left: 10px;
   vertical-align: middle;
 }
+
+.codefi-brand {
+  background: url('codefi-brand-100.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
