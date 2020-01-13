@@ -4,7 +4,7 @@
   "description": "an api documentation website",
   "main": "index.js",
   "scripts": {
-    "gen-index": "cpy --no-overwrite index.html.sample --rename=index.html .",
+    "gen-index": "cpy index.html.sample --rename=index.html .",
     "postinstall": "npm run gen-index",
     "start": "budo src/index.js --serve=bundle.js --live",
     "release": "standard-version",
