@@ -17,6 +17,7 @@ Status Code | Description
 `200` | The response was successful and there scores present.
 `400` | The request was invalid and did not map to our requirements.
 `404` | The resource that was requested was not found.
+`429` | The server's rate limit has been reached, client should handle backoff strategy.
 
 We try to keep the responses minimal, only serving the most important bits to keep response sizes small.
 The fields of a _score_ are defined as follows:
