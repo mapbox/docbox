@@ -1,34 +1,60 @@
-## Wobble
+## Scores
 
-This is our high-quality wobbles API. You can use this API to request
-and remove different wobbles at a low wibble price.
+The `scores` resource is available at this location:
 
-### List wobbles
+Environment | Location
+--- | ---
+Production | `https://api.defiscore.io/v0/scores`
 
-Lists all wobbles for a particular account.
+A _score_ contains fields relating to an _asset_ by a _platform_.
+The `scores` resource is computed every `6` hours and is cached at `1` hour.
+The shape of `scores` will grow or shrink depending on the fields that need to be exposed.
+
+We make use of HTTP status codes to communicate the result of the request. These status codes are currently supported:
+
+Status Code | Description
+--- | ---
+`200` | The response was successful and there scores present.
+`400` | The request was invalid and did not map to our requirements.
+`404` | The resource that was requested was not found.
+
+We try to keep the responses minimal, only serving the most important bits to keep response sizes small.
+The fields of a _score_ are defined as follows:
+
+Field | Description
+--- | ---
+`asset` | This is the string name of asset, usually referred to as the ticker.
+`platform` | This is the string name of the platform.
+`score` | This is the number value of computed score for the asset on the platform.
+`liquidityIndex` | This is the number value representative of the liquidity value.
+`collateralIndex` | This is the number value representative of the collateral value.
+
+#### Score shape
+
+```json
+{
+  "asset": "string",
+  "platform": "string",
+  "metrics": {
+    "score": "number",
+    "liquidityIndex": "number",
+    "collateralIndex": "number"
+  }
+}
+```
+
+### List All Scores
+
+Lists all current scores from the latest calcuation.
 
 ```endpoint
-GET /wobbles/v1/{username}
+GET /v0/scores
 ```
 
 #### Example request
 
 ```curl
-$ curl https://wobble.biz/wobbles/v1/{username}
-```
-
-```bash
-$ wbl wobbles list
-```
-
-```javascript
-client.listWobbles(function(err, wobbles) {
-  console.log(wobbles);
-});
-```
-
-```python
-wobbles.list()
+$ curl -X GET https://api.defiscore.io/v0/scores
 ```
 
 #### Example response
@@ -36,396 +62,134 @@ wobbles.list()
 ```json
 [
   {
-    "owner": "{username}",
-    "id": "{wobble_id}",
-    "created": "{timestamp}",
-    "modified": "{timestamp}"
+    "asset": "{asset}",
+    "platform": "{platform}",
+    "metrics": {
+      "score": "{score}",
+      "liquidityIndex": "{liquidityIndex}",
+      "collateralIndex": "{collateralIndex}"
+    }
   },
-  {
-    "owner": "{username}",
-    "id": "{wobble_id}",
-    "created": "{timestamp}",
-    "modified": "{timestamp}"
-  }
+  ...
 ]
 ```
 
-### Create wobble
+### List By Platform
 
-Creates a new, empty wobble.
+List scores by a given platform.
 
-```endpoint
-POST /wobbles/v1/{username}
-```
+These are the following supported platform strings:
 
-#### Example request
-
-```curl
-curl -X POST https://wobble.biz/wobbles/v1/{username}
-```
-
-```bash
-$ wbl wobbles create
-```
-
-```javascript
-client.createWobble({
-  name: 'example',
-  description: 'An example wobble'
-}, function(err, wobble) {
-  console.log(wobble);
-});
-```
-
-```python
-response = wobbles.create(
-  name='example', description='An example wobble')
-```
-
-#### Example request body
-
-```json
-{
-  "name": "foo",
-  "description": "bar"
-}
-```
-
-Property | Description
+Platform | Description
 ---|---
-`name` | (optional) the name of the wobble
-`description` | (optional) a description of the wobble
-
-#### Example response
-
-```json
-{
-  "owner": "{username}",
-  "id": "{wobble_id}",
-  "name": null,
-  "description": null,
-  "created": "{timestamp}",
-  "modified": "{timestamp}"
-}
-```
-
-### Retrieve a wobble
-
-Returns a single wobble.
+`compound` | https://compound.finance
+`dydx` | https://dydx.exchange
+`ddex` | https://ddex.io
+`fulcrum` | https://fulcrum.trade 
+`nuo` | https://nuo.network
 
 ```endpoint
-GET /wobbles/v1/{username}/{wobble_id}
-```
-
-Retrieve information about an existing wobble.
-
-#### Example request
-
-```curl
-curl https://wobble.biz/wobbles/v1/{username}/{wobble_id}
-```
-
-```bash
-$ wbl wobble read-wobble wobble-id
-```
-
-```python
-attrs = wobbles.read_wobble(wobble_id).json()
-```
-
-```javascript
-client.readWobble('wobble-id',
-  function(err, wobble) {
-    console.log(wobble);
-  });
-```
-
-#### Example response
-
-```json
-{
-  "owner": "{username}",
-  "id": "{wobble_id}",
-  "created": "{timestamp}",
-  "modified": "{timestamp}"
-}
-```
-
-### Update a wobble
-
-Updates the properties of a particular wobble.
-
-```endpoint
-PATCH /wobbles/v1/{username}/{wobble_id}
+GET /v0/scores?groupByPlatform={platform}
 ```
 
 #### Example request
 
 ```curl
-curl --request PATCH https://wobble.biz/wobbles/v1/{username}/{wobble_id} \
-  -d @data.json
-```
-
-```python
-resp = wobbles.update_wobble(
-  wobble_id,
-  name='updated example',
-  description='An updated example wobble'
-  ).json()
-```
-
-```bash
-$ wbl wobble update-wobble wobble-id
-```
-
-```javascript
-var options = { name: 'foo' };
-client.updateWobble('wobble-id', options, function(err, wobble) {
-  console.log(wobble);
-});
-```
-
-#### Example request body
-
-```json
-{
-  "name": "foo",
-  "description": "bar"
-}
-```
-
-Property | Description
----|---
-`name` | (optional) the name of the wobble
-`description` | (optional) a description of the wobble
-
-#### Example response
-
-```json
-{
-  "owner": "{username}",
-  "id": "{wobble_id}",
-  "name": "foo",
-  "description": "bar",
-  "created": "{timestamp}",
-  "modified": "{timestamp}"
-}
-```
-
-### Delete a wobble
-
-Deletes a wobble, including all wibbles it contains.
-
-```endpoint
-DELETE /wobbles/v1/{username}/{wobble_id}
-```
-
-#### Example request
-
-```curl
-curl -X DELETE https://wobble.biz/wobbles/v1/{username}/{wobble_id}
-```
-
-```bash
-$ wbl wobble delete-wobble wobble-id
-```
-
-```python
-resp = wobbles.delete_wobble(wobble_id)
-```
-
-```javascript
-client.deleteWobble('wobble-id', function(err) {
-  if (!err) console.log('deleted!');
-});
-```
-
-#### Example response
-
-> HTTP 204
-
-### List wibbles
-
-List all the wibbles in a wobble. The response body will be a
-WobbleCollection.
-
-```endpoint
-GET /wobbles/v1/{username}/{wobble_id}/wibbles
-```
-
-#### Example request
-
-```curl
-curl https://wobble.biz/wobbles/v1/{username}/{wobble_id}/wibbles
-```
-
-```bash
-$ wbl wobble list-wibbles wobble-id
-```
-
-```python
-collection = wobbles.list_wibbles(wobble_id).json()
-```
-
-```javascript
-client.listWobbles('wobble-id', {}, function(err, collection) {
-  console.log(collection);
-});
+curl -X GET https://api.defiscore.io/v0/scores?groupByPlatform={platform}
 ```
 
 #### Example response
 
 ```json
-{
-  "type": "Wobble",
-  "wibbles": [
-    {
-      "id": "{wibble_id}",
-      "type": "Wobble",
-      "properties": {
-        "prop0": "value0"
-      }
-    },
-    {
-      "id": "{wibble_id}",
-      "type": "Wobble",
-      "properties": {
-        "prop0": "value0"
-      }
+[
+  {
+    "asset": "{asset}",
+    "platform": "{platform}",
+    "metrics": {
+      "score": "{score}",
+      "liquidityIndex": "{liquidityIndex}",
+      "collateralIndex": "{collateralIndex}"
     }
-  ]
-}
+  },
+  ...
+]
 ```
 
-### Insert or update a wibble
+### List By Asset
 
-Inserts or updates a wibble in a wobble. If there's already a wibble
-with the given ID in the wobble, it will be replaced. If there isn't
-a wibble with that ID, a new wibble is created.
+List scores by a given asset.
 
-```endpoint
-PUT /wobbles/v1/{username}/{wobble_id}/wibbles/{wibble_id}
-```
+These are the following supported asset strings:
 
-#### Example request
-
-```curl
-curl https://wobble.biz/wobbles/v1/{username}/{wobble_id}/wibbles/{wibble_id} \
-  -X PUT \
-  -d @file.geojson
-```
-
-```bash
-$ wbl wobble put-wibble wobble-id wibble-id 'geojson-wibble'
-```
-
-```javascript
-var wibble = {
-  "type": "Wobble",
-  "properties": { "name": "Null Island" }
-};
-client.insertWobble(wibble, 'wobble-id', function(err, wibble) {
-  console.log(wibble);
-});
-```
-
-#### Example request body
-
-```json
-{
-  "id": "{wibble_id}",
-  "type": "Wobble",
-  "properties": {
-    "prop0": "value0"
-  }
-}
-```
-
-Property | Description
+Asset | Descriptions
 --- | ---
-`id` | the id of an existing wibble in the wobble
-
-#### Example response
-
-```json
-{
-  "id": "{wibble_id}",
-  "type": "Wobble",
-  "properties": {
-    "prop0": "value0"
-  }
-}
-```
-
-### Retrieve a wibble
-
-Retrieves a wibble in a wobble.
+`eth` | https://ethereum.org
+`dai` | https://makerdao.com
+`sai` | https://makerdao.com
+`usdc` | https://www.coinbase.com/usdc
+`wbtc` | https://www.wbtc.network
+`rep` | https://www.augur.net
+`zrx` | https://0x.org
+`bat` | https://basicattentiontoken.org
+`tusd` | https://www.trusttoken.com/trueusd
+`usdt` | https://tether.to
 
 ```endpoint
-GET /wobbles/v1/{username}/{wobble_id}/wibbles/{wibble_id}
+GET /v0/scores?groupByAsset={asset}
 ```
 
 #### Example request
 
 ```curl
-curl https://wobble.biz/wobbles/v1/{username}/{wobble_id}/wibbles/{wibble_id}
-```
-
-```bash
-$ wbl wobble read-wibble wobble-id wibble-id
-```
-
-```javascript
-client.readWobble('wibble-id', 'wobble-id',
-  function(err, wibble) {
-    console.log(wibble);
-  });
-```
-
-```python
-wibble = wobbles.read_wibble(wobble_id, '2').json()
+curl -X GET https://api.defiscore.io/v0/scores?groupByAsset={asset}
 ```
 
 #### Example response
 
 ```json
-{
-  "id": "{wibble_id}",
-  "type": "Wobble",
-  "properties": {
-    "prop0": "value0"
-  }
-}
+[
+  {
+    "asset": "{asset}",
+    "platform": "{platform}",
+    "metrics": {
+      "score": "{score}",
+      "liquidityIndex": "{liquidityIndex}",
+      "collateralIndex": "{collateralIndex}"
+    }
+  },
+  ...
+]
 ```
 
-### Delete a wibble
+### Asset Of Platform
 
-Removes a wibble from a wobble.
+Retrieve the score of a single asset of a platform, if platform supports it.
+Simply combining both query parameters allow you to isolate a certain score.
+Refer to the tables above for supported assets and platforms.
 
 ```endpoint
-DELETE /wobbles/v1/{username}/{wobble_id}/wibbles/{wibble_id}
+GET /v0/scores?groupByAsset={asset}&groupByPlatform={platform}
 ```
 
 #### Example request
 
-```javascript
-client.deleteWobble('wibble-id', 'wobble-id', function(err, wibble) {
-  if (!err) console.log('deleted!');
-});
-```
-
 ```curl
-curl -X DELETE https://wobble.biz/wobbles/v1/{username}/{wobble_id}/wibbles/{wibble_id}
-```
-
-```python
-resp = wobbles.delete_wibble(wobble_id, wibble_id)
-```
-
-```bash
-$ wbl wobble delete-wibble wobble-id wibble-id
+curl https://api.defiscore.io/v0/scores?groupByAsset={asset}&groupByPlatform={platform}
 ```
 
 #### Example response
 
-> HTTP 204
+```json
+[
+  {
+    "asset": "{asset}",
+    "platform": "{platform}",
+    "metrics": {
+      "score": "{score}",
+      "liquidityIndex": "{liquidityIndex}",
+      "collateralIndex": "{collateralIndex}"
+    }
+  },
+  ...
+]
+```
