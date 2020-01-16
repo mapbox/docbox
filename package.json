@@ -11,7 +11,7 @@
     "test": "npm run test-unit && eslint src && npm run prerender -- /dev/null && rm -rf lib",
     "test-unit": "mocha --require babel-register test",
     "prerender": "babel src --out-dir lib && node lib/render.js",
-    "build": "npm run gen-index && cross-env NODE_ENV=production browserify src/index.js | uglifyjs -c -m > bundle.js && npm run prerender -- index.html && mkdir -p dist && cp -r index.html bundle.js css dist"
+    "build": "npm run gen-index && cross-env NODE_ENV=production browserify src/index.js | uglifyjs -c -m > bundle.js && npm run prerender -- index.html && mkdir -p dist && cp -r index.html bundle.js css favicon dist"
   },
   "browserify": {
     "transform": [
