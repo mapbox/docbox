@@ -17,13 +17,14 @@ Status Code | Description
 `200` | The response was successful and there scores present.
 `400` | The request was invalid and did not map to our requirements.
 `404` | The resource that was requested was not found.
-`429` | The server's rate limit has been reached, client should handle backoff strategy.
 
 We try to keep the responses minimal, only serving the most important bits to keep response sizes small.
 The fields of a _score_ are defined as follows:
 
 Field | Description
 --- | ---
+`id` | This is UUID corresponding to the batch of scores.
+`createdOn` | This is the ISO formatted date the scores were computed.
 `asset` | This is the string name of asset, usually referred to as the ticker.
 `platform` | This is the string name of the platform.
 `score` | This is the number value of computed score for the asset on the platform.

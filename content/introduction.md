@@ -1,7 +1,10 @@
-## Overview
+## Introduction
 [The DeFi Score](https://defiscore.io/) is a framework for evaluating DeFi protocols. Based on factors including smart contract risk, collateralization, and liquidity, the model outputs an easy to understand 0–10 rating.
 
 With the **DeFi Score API**, developers can programmatically retrieve the individual scores and additional data points which can then be presented to users or integrated into other systems.
+
+
+## Overview
 
 Scoring decentralized lending platforms is a continuous process that depends on many variables.
 This API will conveniently provide scores and metrics of every supported asset and platform.
@@ -21,7 +24,7 @@ The DeFi Score API is currently live at this location:
 
 Environment | URL
 --- | ---
-Production | `https://api.defiscore/v0`
+Production | `https://api.defiscore.io/v0`
 
 Breaking changes are assumed at `v0` so there is no need for a staging environment.
 However, once `v1` is available, a staging environment will be stood up to test future modules and interfaces.
