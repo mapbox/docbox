@@ -31,21 +31,41 @@ However, once `v1` is available, a staging environment will be stood up to test 
 
 ## Authentication
 
-Bearer authentication is required to interact with the API. Clients must send their bearer token in the `Authorization` request header.
+Authentication is performed using the [OAuth2 Client Credentials Flow](https://auth0.com/docs/flows/concepts/client-credentials) (defined in OAuth 2.0 RFC 6749, section 4.4). Once you have signed up, you will receive a `client_id` and `client_secret`. **Always keep your `client_secret` secure.** These can be used to generate a bearer token that can be supplied in request headers to authenticate your requests to the API.
 
-```
-Authorization: Bearer <token>
-```
+### Generating a Bearer Token
 
-Your bearer token will be provided to you when you sign up.
+In order to generate a bearer token, you should following these steps within your implementation:
+
+1. Using your `client_id` and `client_secret`, fetch a bearer token from `https://codefi-prod.eu.auth0.com/oauth/token`
+1. Store this token in memory, and for each request, check if it has expired, if so, repeat step 1
+1. Use the stored bearer token within the `Authorization` request header to authenticate your requests
+
+#### Quickstart
+
+```sh
+export CLIENT_ID="xxx"
+export CLIENT_SECRET="yyy"
+
+# Fetch an access token
+export ACCESS_TOKEN=$(curl -s --request POST --url 'https://codefi-prod.eu.auth0.com/oauth/token' --header 'content-type: application/x-www-form-urlencoded' --data "audience=https://api.codefi.network&grant_type=client_credentials&client_id=$CLIENT_ID&client_secret=$CLIENT_SECRET" | python -c 'import sys,json; print(json.load(sys.stdin)["access_token"])')
+
+# Access the Defi Score API
+curl -s -X GET \
+    -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+    -H 'Accept: application/json' \
+    -H 'Content-Type: application/json' \
+    -iL \
+    https://data.api.codefi.network/v0/defi-score/scores
+```
 
 ## Rate Limits
 
-Requests to the API are rate limited to ensure fair usage. Usage is provided in response headers to indicate how close to rate limits your client is.
+Requests to the API are rate limited to ensure fair usage. Current usage information is provided in response headers to indicate how close to your client is to hitting the rate limit.
 
-### Migrating to the new endpoint
+Sample headers:
 
-Migrating to the new endpoint requires the following changes:
-
-1. Change the hostname and base path from `https://api.defiscore.io/v0` to `https://data.api.codefi.network/v0/defi-score`
-1. Add an `Authorization` header to your requests containing your bearer token
+```
+X-RateLimit-Limit-minute: 60
+X-RateLimit-Remaining-minute: 39
+```
