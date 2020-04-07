@@ -4,7 +4,7 @@ The `scores` resource is available at this location:
 
 Environment | Location
 --- | ---
-Production | `https://api.defiscore.io/v0/scores`
+Production | `https://data.api.codefi.network/v0/defi-score`
 
 A _score_ contains fields relating to an _asset_ by a _platform_.
 The `scores` resource is computed every `6` hours and is cached at `1` hour.
@@ -58,7 +58,7 @@ GET /v0/scores
 #### Example request
 
 ```curl
-$ curl -X GET https://api.defiscore.io/v0/scores
+$ curl -X GET https://data.api.codefi.network/v0/defi-score
 ```
 
 #### Example response
@@ -99,7 +99,7 @@ GET /v0/scores?groupByPlatform={platform}
 #### Example request
 
 ```curl
-curl -X GET https://api.defiscore.io/v0/scores?groupByPlatform={platform}
+curl -X GET https://data.api.codefi.network/v0/defi-score?groupByPlatform={platform}
 ```
 
 #### Example response
@@ -145,7 +145,7 @@ GET /v0/scores?groupByAsset={asset}
 #### Example request
 
 ```curl
-curl -X GET https://api.defiscore.io/v0/scores?groupByAsset={asset}
+curl -X GET https://data.api.codefi.network/v0/defi-score?groupByAsset={asset}
 ```
 
 #### Example response
@@ -178,7 +178,7 @@ GET /v0/scores?groupByAsset={asset}&groupByPlatform={platform}
 #### Example request
 
 ```curl
-curl https://api.defiscore.io/v0/scores?groupByAsset={asset}&groupByPlatform={platform}
+curl https://data.api.codefi.network/v0/defi-score?groupByAsset={asset}&groupByPlatform={platform}
 ```
 
 #### Example response

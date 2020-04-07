@@ -42,15 +42,16 @@ In order to generate a bearer token, you should following these steps within you
 1. Use the stored bearer token within the `Authorization` request header to authenticate your requests
 
 #### Quickstart
-
-```sh
+```curl
 export CLIENT_ID="xxx"
 export CLIENT_SECRET="yyy"
 
 # Fetch an access token
 export ACCESS_TOKEN=$(curl -s --request POST --url 'https://codefi-prod.eu.auth0.com/oauth/token' --header 'content-type: application/x-www-form-urlencoded' --data "audience=https://api.codefi.network&grant_type=client_credentials&client_id=$CLIENT_ID&client_secret=$CLIENT_SECRET" | python -c 'import sys,json; print(json.load(sys.stdin)["access_token"])')
+```
 
-# Access the Defi Score API
+#### Access the Defi Score API
+```curl
 curl -s -X GET \
     -H "Authorization: Bearer ${ACCESS_TOKEN}" \
     -H 'Accept: application/json' \
